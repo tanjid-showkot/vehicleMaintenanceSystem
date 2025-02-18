@@ -11,7 +11,7 @@ const TransportCard = () => {
         <h2 className=' font-bold text-lg lg:card-title'>Passenger Vehicle</h2>
         <div className='flex justify-around items-center'>
           <div>
-            <p className='font-bold text-center text-m'> Hamim</p>
+            <p className='font-bold text-center text-m'> Hameem</p>
 
             <p className='font-bold  text-center text-m'>3</p>
           </div>

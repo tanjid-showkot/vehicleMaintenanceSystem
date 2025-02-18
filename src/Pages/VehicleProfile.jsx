@@ -27,6 +27,16 @@ const VehicleProfile = () => {
             <p className='font-bold'>CHASSIS DETAIL: WMA34WZZ9NM893049</p>
             <p className=''>Model: 2012</p>
             <p className=''>Vehicle Type: PASSENGER VEHICLE</p>
+            <p className='font-bold '>
+              Status:{" "}
+              <span className='text-2xl text-success font-bold'>
+                {" "}
+                <div
+                  aria-label='status'
+                  className='status status-success status-xl '></div>{" "}
+                Active
+              </span>
+            </p>
           </div>
         </div>
       </div>
@@ -223,7 +233,7 @@ const VehicleProfile = () => {
           <div>
             <p className='text-xl ps-10 font-bold mb-4'>Services: </p>
           </div>
-          <div className='grid grid-cols-2 gap-4 lg:ms-20 ms-8'>
+          <div className='grid lg:grid-cols-2 gap-4 lg:ms-20 ms-8'>
             <div className='flex items-center gap-3'>
               <div>
                 <label>
@@ -244,6 +254,8 @@ const VehicleProfile = () => {
                     <div className='font-bold lg:text-xl text-m '>
                       Engine Oil
                     </div>
+                    <div className='text-sm opacity-50'>Current: 77601 km</div>
+                    <div className='text-sm '>Next Service: 87601 km</div>
                   </div>
                 </div>
               </div>
@@ -263,6 +275,8 @@ const VehicleProfile = () => {
                   </div>
                   <div>
                     <div className='font-bold lg:text-xl text-m '>Gear Oil</div>
+                    <div className='text-sm opacity-50'>Current: 77601 km</div>
+                    <div className='text-sm '>Next Service: 87601 km</div>
                   </div>
                 </div>
               </div>
@@ -357,7 +371,52 @@ const VehicleProfile = () => {
           </div>
         </div>
       </div>
-      <div className='mt-44'></div>
+
+      <div>
+        <div>
+          <p className='text-2xl m-8 font-bold'>Maintenance History: </p>
+        </div>
+        <div>
+          <div className='m-4 grid gap-4 '>
+            <div className='card  shadow-sm bg-[#F2F7FE] '>
+              <div className=' flex justify-around py-4 items-center '>
+                <div>
+                  <h2 className='card-title'>New movie is released!</h2>
+                  <p>Click the button to watch on Jetflix app.</p>
+                </div>
+                <div className=' flex flex-col justify-center  items-center '>
+                  <p> Request Date:</p>
+                  <p> 20/01/2025</p>
+                </div>
+                <div className=' flex flex-col justify-center  items-center '>
+                  <div>Status</div>
+                  <div className='badge badge-warning'>Pending</div>
+                </div>
+              </div>
+            </div>
+            <div className='card  shadow-sm bg-[#F2F7FE] '>
+              <div className=' flex justify-around py-4 items-center '>
+                <div>
+                  <h2 className='card-title'>New movie is released!</h2>
+                  <p>Click the button to watch on Jetflix app.</p>
+                </div>
+                <div className=' flex flex-col justify-center  items-center '>
+                  <p> Request Date:</p>
+                  <p> 20/01/2025</p>
+                </div>
+                <div className=' flex flex-col justify-center  items-center '>
+                  <p> Received Date:</p>
+                  <p> 20/01/2025</p>
+                </div>
+                <div className=' flex flex-col justify-center  items-center '>
+                  <div>Status</div>
+                  <div className='badge badge-success'>Received</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
