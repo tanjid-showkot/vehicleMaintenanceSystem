@@ -1,26 +1,30 @@
 /** @format */
 import { useNavigate } from "react-router";
-import mercedes from "../assets/logo/mercedes.png";
-const VehicleListCard = () => {
+import PropTypes from "prop-types";
+
+const VehicleListCard = (props) => {
   const navigator = useNavigate();
+  const { vehicle, sl } = props;
+
+  const handleClick = () => {
+    navigator("/vehicleProfile", { state: { vehicle } });
+  };
   return (
-    <ul
-      onClick={() => navigator("/vehicleProfile")}
-      className='list bg-base-100 rounded-box shadow-md'>
+    <ul className='list bg-base-100 rounded-box shadow-md'>
       <li className='list-row'>
-        <div className='text-4xl font-thin opacity-30 tabular-nums'>01</div>
-        <div>
-          <img className='size-12 w-14  rounded-box' src={mercedes} />
+        <div className='text-4xl font-thin opacity-30 tabular-nums '>{sl}</div>
+        <div className='flex items-center bg-gray-100 p-4 rounded-2xl  '>
+          <img className=' size-14 h-fit ' src={vehicle.logo} />
         </div>
         <div className='list-col-grow'>
-          <div className=' font-black'>Plate No: 29481 </div>
+          <div className=' font-black'>Plate No: {vehicle.plate_number} </div>
           <div className='text-xs uppercase font-semibold opacity-60'>
-            TATA, LPO1618, PRIVATE TRANS. BUS
+            {vehicle.name}
           </div>
           <div className='text-m text-accent uppercase font-bold  '>
-            Site: Razeen
+            Site: {vehicle.site}
           </div>
-          <div className='text-xs items-center text-center flex justify-around uppercase font-semibold opacity-60'>
+          {/* <div className='text-xs items-center text-center flex justify-around uppercase font-semibold opacity-60'>
             <p>Current</p>
             <p>Next</p>
           </div>
@@ -31,12 +35,18 @@ const VehicleListCard = () => {
             <p className='text-m text-primary text-center  uppercase font-semibold '>
               4475
             </p>
-          </div>
+          </div> */}
         </div>
         <button className='btn btn-square btn-ghost'>
-          <div aria-label='error' className='status status-success'></div>
+          <div
+            aria-label='error'
+            className={`status ${
+              vehicle.status ? "status-success" : "status-error"
+            }`}></div>
         </button>
-        <button className='btn btn-square btn-ghost'>
+        <button
+          onClick={() => handleClick()}
+          className='btn btn-square btn-ghost'>
           <svg
             className='size-[1.2em]'
             xmlns='http://www.w3.org/2000/svg'
@@ -57,3 +67,13 @@ const VehicleListCard = () => {
 };
 
 export default VehicleListCard;
+VehicleListCard.propTypes = {
+  vehicle: PropTypes.shape({
+    logo: PropTypes.string,
+    plate_number: PropTypes.string,
+    name: PropTypes.string,
+    site: PropTypes.string,
+    status: PropTypes.bool,
+  }).isRequired,
+  sl: PropTypes.number.isRequired,
+};

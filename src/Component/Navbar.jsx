@@ -9,6 +9,7 @@ const Navbar = () => {
           <img src={logo} className=' w-36 ' />{" "}
         </a>
       </div>
+
       <div className='flex gap-2'>
         <input
           type='text'
