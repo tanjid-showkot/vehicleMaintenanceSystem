@@ -13,7 +13,7 @@ const Home = () => {
         Equipment List
       </h1>
       <div
-        className=' lg:grid lg:grid-cols-3 lg:gap-4
+        className=' grid lg:grid-cols-3 grid-cols-1 gap-4
        '>
         {Object.entries(mediaVehicle).map(([key, vehicles]) => (
           <TransportCard key={key} class_name={key} transport={vehicles} />
