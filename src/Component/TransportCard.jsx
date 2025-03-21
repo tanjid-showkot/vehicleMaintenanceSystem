@@ -20,7 +20,7 @@ const TransportCard = (props) => {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/vehicle", { state: { transport } });
+    navigate("/home/vehicle", { state: { transport } });
   };
   return (
     <div className='card card-side bg-base-100 shadow-sm'>

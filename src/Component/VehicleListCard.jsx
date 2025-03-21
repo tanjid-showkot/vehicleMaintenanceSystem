@@ -5,15 +5,16 @@ import PropTypes from "prop-types";
 const VehicleListCard = (props) => {
   const navigator = useNavigate();
   const { vehicle, sl } = props;
+  const id = vehicle.id;
 
   const handleClick = () => {
-    navigator("/vehicleProfile", { state: { vehicle } });
+    navigator("/home/vehicleProfile", { state: { id } });
   };
   return (
-    <ul className='list bg-base-100 rounded-box shadow-md'>
+    <ul className='list bg-base-200 rounded-box shadow-md'>
       <li className='list-row'>
         <div className='text-4xl font-thin opacity-30 tabular-nums '>{sl}</div>
-        <div className='flex items-center bg-gray-100 p-4 rounded-2xl  '>
+        <div className='flex items-center bg-gray-200 p-4 rounded-2xl  '>
           <img className=' size-14 h-fit ' src={vehicle.logo} />
         </div>
         <div className='list-col-grow'>
@@ -21,8 +22,14 @@ const VehicleListCard = (props) => {
           <div className='text-xs uppercase font-semibold opacity-60'>
             {vehicle.name}
           </div>
-          <div className='text-m text-accent uppercase font-bold  '>
-            Site: {vehicle.site}
+          <div className={`text-m   capitalize font-bold  `}>
+            Site:{" "}
+            <strong
+              className={
+                vehicle.site === "Hameem" ? " text-accent" : " text-info"
+              }>
+              {vehicle.site}
+            </strong>
           </div>
           {/* <div className='text-xs items-center text-center flex justify-around uppercase font-semibold opacity-60'>
             <p>Current</p>
@@ -74,6 +81,7 @@ VehicleListCard.propTypes = {
     name: PropTypes.string,
     site: PropTypes.string,
     status: PropTypes.bool,
+    id: PropTypes.number,
   }).isRequired,
   sl: PropTypes.number.isRequired,
 };

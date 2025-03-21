@@ -20,12 +20,12 @@ function getErrorMessage(response) {
 
 const handleResponse = async (response) => {
     if (!response.ok) {
-        // const errorData = await response.json();
-        // const message = JSON.stringify(errorData);
-        // console.log(message);
-        // throw new Error(message);
-        const message = getErrorMessage(response);
+        const errorData = await response.json();
+        const message = JSON.stringify(errorData);
+        console.log(message);
         throw new Error(message);
+        // const message = getErrorMessage(response);
+        // throw new Error(message);
     }
     return response;
 };
@@ -85,6 +85,39 @@ export const vehicleList = async () => {
         throw error;
     }
 };
+export const getVehicle = async (id) => {
+    try {
+        const response = await fetch(`${url}vehicles/${id}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+
+            },
+
+        });
+        return handleResponse(response);
+    } catch (error) {
+        console.error("API Error:", error.message);
+        throw error;
+    }
+};
+
+export const editVehicle = async (id, data) => {
+    console.log(data)
+    try {
+        const response = await fetch(`${url}vehicles/${id}/`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        return handleResponse(response);
+    } catch (error) {
+        console.error("API Error:", error.message);
+        throw error;
+    }
+};
 
 export const deleteVehicle = async (id) => {
     try {
@@ -111,6 +144,34 @@ export const createVehicleMaintenance = async (data) => {
 
             },
             body: JSON.stringify(data),
+        });
+        return handleResponse(response);
+    } catch (error) {
+        console.error("API Error:", error.message);
+        throw error;
+    }
+};
+export const updateVehicleMaintenance = async (id, data) => {
+    try {
+        const response = await fetch(`${url}maintenance/${id}/`, {
+            method: "PATCH",
+            body: data,
+        });
+        return handleResponse(response);
+    } catch (error) {
+        console.error("API Error:", error.message);
+        throw error;
+    }
+};
+export const getMaintenanceHistoryByVehicle = async (id) => {
+    try {
+        const response = await fetch(`${url}maintenance/${id}/vehicle_maintenances/`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+
+            },
+
         });
         return handleResponse(response);
     } catch (error) {
