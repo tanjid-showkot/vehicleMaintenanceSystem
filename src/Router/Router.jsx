@@ -7,15 +7,15 @@ import Vehicle from "../Pages/Vehicle";
 import VehicleProfile from "../Pages/VehicleProfile";
 import OwnVehicle from "../Pages/OwnVehicle";
 import Summary from "../Pages/Summary";
-import Login from "../Pages/Login";
+// import Login from "../Pages/Login";
 
 const webRouter = createBrowserRouter([
+  // {
+  //   path: "/",
+  //   element: <Login></Login>,
+  // },
   {
     path: "/",
-    element: <Login></Login>,
-  },
-  {
-    path: "/home",
     element: <Layout></Layout>,
     children: [
       {

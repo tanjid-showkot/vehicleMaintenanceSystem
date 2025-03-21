@@ -32,13 +32,13 @@ const Navbar = () => {
   const menuItems = (
     <React.Fragment>
       <li>
-        <NavLink to='/home'>Home</NavLink>
+        <NavLink to='/'>Home</NavLink>
       </li>
       <li>
-        <NavLink to='/home/ownVehicle'>Own Vehicle</NavLink>
+        <NavLink to='/ownVehicle'>Own Vehicle</NavLink>
       </li>
       <li>
-        <NavLink to='/home/summary'>Summary</NavLink>
+        <NavLink to='/summary'>Summary</NavLink>
       </li>
     </React.Fragment>
   );
@@ -69,7 +69,7 @@ const Navbar = () => {
   const handleSelectVehicle = (vehicle) => {
     setSearchTerm(""); // Clear search box
     setFilteredVehicles([]); // Hide dropdown
-    navigate("/home/vehicleProfile", { state: { id: vehicle.id } }); // Navigate to vehicle profile
+    navigate("/vehicleProfile", { state: { id: vehicle.id } }); // Navigate to vehicle profile
   };
 
   return (

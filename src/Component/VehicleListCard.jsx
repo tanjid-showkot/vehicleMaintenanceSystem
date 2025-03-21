@@ -8,7 +8,7 @@ const VehicleListCard = (props) => {
   const id = vehicle.id;
 
   const handleClick = () => {
-    navigator("/home/vehicleProfile", { state: { id } });
+    navigator("/vehicleProfile", { state: { id } });
   };
   return (
     <ul className='list bg-base-200 rounded-box shadow-md'>
