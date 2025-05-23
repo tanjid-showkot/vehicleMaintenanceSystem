@@ -1,6 +1,7 @@
 /** @format */
 import ac from "../assets/Services/fan.png";
 import others from "../assets/Services/application.png";
+import oilLeak from "../assets/issue/oil-leak.png";
 import engine from "../assets/Services/car-engine.png";
 import dynamo from "../assets/Services/electric-motor.png";
 import gear from "../assets/Services/gear.png";
@@ -25,6 +26,7 @@ import {
   updateVehicleMaintenance,
 } from "../Api/Api";
 import moment from "moment";
+import { set } from "react-hook-form";
 
 // #0069FF
 // #F2F7FE
@@ -52,6 +54,7 @@ const VehicleProfile = () => {
   const [updateNext, setUpdateNext] = useState("");
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [issueOtherString, setIssueOtherString] = useState("");
 
   const handleImageClick = (src) => {
     setSelectedImage(src);
@@ -120,6 +123,11 @@ const VehicleProfile = () => {
     },
     {
       id: 13,
+      logo: oilLeak,
+      name: "Oil Leakage",
+    },
+    {
+      id: 14,
       logo: others,
       name: "Others",
     },
@@ -146,7 +154,7 @@ const VehicleProfile = () => {
       name: "4000",
     },
     {
-      id: 4,
+      id: 5,
       logo: serviceLogo,
       name: "5000",
     },
@@ -172,9 +180,8 @@ const VehicleProfile = () => {
       await getMaintenanceHistoryByVehicle(id)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.reverse());
           // setVehicleMain();
-          setVehicleMain(data.reverse());
+          setVehicleMain(data);
           const validEntry = data
             .reverse()
             .find((item) => item.current !== null);
@@ -206,9 +213,7 @@ const VehicleProfile = () => {
 
       if (isSelected) {
         return prevList.filter((s) => s.id !== issue.id);
-      } else {
-        return [...prevList, issue];
-      }
+      } else return [...prevList, issue];
     });
   };
   const handleRequestList = () => {
@@ -221,6 +226,7 @@ const VehicleProfile = () => {
   };
   const handleSendEmail = async (e) => {
     e.preventDefault();
+
     const value = {
       req_date: moment().format("YYYY-MM-DD"),
       ...(issueString && { issue_parts: issueString }),
@@ -234,8 +240,8 @@ const VehicleProfile = () => {
       .then((data) => {
         console.log(data);
         emailjs
-          .sendForm("service_xxk4a4i", "template_ysdi1il", form.current, {
-            publicKey: "oCYu3r-zBwmCKtm6H",
+          .sendForm("service_bgo9fec", "template_6offxym", form.current, {
+            publicKey: "wkye0fjFnJ-WHjmQs",
           })
           .then(
             () => {
@@ -336,6 +342,73 @@ const VehicleProfile = () => {
     //   updatedImages.map((img) => img.file)
     // );
   };
+  const getEmailHtmlBody = (
+    vehicle,
+    issueString,
+    serviceString,
+    UpdateCurrent
+  ) => {
+    return `
+    <p>Dear Sir</p>
+    <p style="font-weight:600; font-size:14px; color:#458d "  >Good Day.We would like to inform you that the following vehicle is due for inspection.</p>
+
+  
+  
+   
+    <table style="
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      border: 1px solid #000;
+    ">
+      <thead>
+      <tr>
+      <td colspan="6" style="border: 1px solid #000; padding: 8px;   "> <strong>Kindly arrange to service/repair the subject machine on your KOMATSU / GALADARI support</strong> </td>
+      </tr>
+        <tr style="background-color: #f2f2f2;">
+          <th style="border: 1px solid #000; padding: 8px;">PLATE NO:</th>
+          <th style="border: 1px solid #000; padding: 8px;">MODEL</th>
+          <th style="border: 1px solid #000; padding: 8px;">SERIAL NO:</th>
+          <th style="border: 1px solid #000; padding: 8px; background-color: #99ff99;">Current Hours meter</th>
+          <th style="border: 1px solid #000; padding: 8px;">LOCATION</th>
+          <th style="border: 1px solid #000; padding: 8px;">CONTACT NO:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border: 1px solid #000; padding: 8px;">${
+            vehicle.plate_number || ""
+          }</td>
+          <td style="border: 1px solid #000; padding: 8px;">${
+            vehicle.name || ""
+          }</td>
+          <td style="border: 1px solid #000; padding: 8px;">${
+            vehicle.chassis_number || ""
+          }</td>
+          <td style="border: 1px solid #000; padding: 8px; background-color: #99ff99;">${
+            UpdateCurrent || ""
+          }</td>
+          <td style="border: 1px solid #000; padding: 8px;">${vehicle.site}</td>
+          <td style="border: 1px solid #000; padding: 8px;">N/A</td>
+        </tr>
+        <tr>
+          <td colspan="6" style="border: 1px solid #000; padding: 8px; "><strong>The Complaint:</strong> ${
+            issueString ? `<strong>Issues:</strong> ${issueString} ` : ""
+          }${
+      serviceString
+        ? `<strong>Service required for:</strong> ${serviceString} Km`
+        : ""
+    }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    
+  `;
+  };
 
   return (
     <div className=''>
@@ -412,38 +485,45 @@ const VehicleProfile = () => {
 
       <div className='lg:flex  '>
         <div className='lg:w-1/2 '>
-          <div>
-            <p className='text-xl ps-10 font-bold mb-4 '>Issues: </p>
-          </div>
+          <p className='text-xl ps-10 font-bold mb-4 '>Issues: </p>
+
           <div className='grid grid-cols-2 gap-4 lg:ms-20 ms-8 '>
             {issues.map((issue, index) => (
               <div key={index} className='flex items-center gap-3'>
-                <div>
-                  <label>
+                <input
+                  checked={issueList.some((item) => item.id === issue.id)}
+                  onChange={() => handleSelectIssue(issue)}
+                  type='checkbox'
+                  className='checkbox'
+                />
+
+                <div className='flex items-center gap-3'>
+                  <img
+                    className='avatar mask mask-squircle lg:h-12 lg:w-12 h-8 w-8'
+                    src={issue.logo}
+                  />
+
+                  <p className='font-bold lg:text-xl text-m '>{issue.name}</p>
+                  {/* {issueList.some((item) => item.id === 14) && (
                     <input
-                      checked={issueList.some((item) => item.id === issue.id)}
-                      onChange={() => handleSelectIssue(issue)}
-                      type='checkbox'
-                      className='checkbox'
+                      type='text'
+                      value={issueOtherString}
+                      onChange={(e) => {
+                        setIssueOtherString(e.target.value);
+                      }}
+                      onBlur={(e) => {
+                        handleSelectIssue({
+                          image: "",
+                          id: 14,
+                          name: e.target.value,
+                        });
+                      }}
+                      placeholder='Enter Issue'
+                      className={`input input-sm  ${
+                        issue.id !== 14 ? "hidden" : ""
+                      }`}
                     />
-                  </label>
-                </div>
-                <div>
-                  <div className='flex items-center gap-3'>
-                    <div className='avatar'>
-                      <div className='mask mask-squircle lg:h-12 lg:w-12 h-8 w-8'>
-                        <img
-                          src={issue.logo}
-                          alt='Avatar Tailwind CSS Component'
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className='font-bold lg:text-xl text-m '>
-                        {issue.name}
-                      </div>
-                    </div>
-                  </div>
+                  )} */}
                 </div>
               </div>
             ))}
@@ -666,7 +746,7 @@ const VehicleProfile = () => {
                             m.photo_additional_3,
                             m.photo_additional_4,
                           ]
-                            .filter(Boolean) // Remove any undefined/null values
+                            .filter(Boolean)
                             .map((photo, index) => (
                               <img
                                 key={index}
@@ -687,8 +767,7 @@ const VehicleProfile = () => {
                   {selectedImage && (
                     <div
                       className='fixed inset-0 flex items-center justify-center bg-transparent/50  bg-opacity-80 z-50'
-                      onClick={() => setSelectedImage(null)} // Close modal on click
-                    >
+                      onClick={() => setSelectedImage(null)}>
                       <div className='relative'>
                         <img
                           src={selectedImage}
@@ -710,9 +789,9 @@ const VehicleProfile = () => {
         </div>
       </div>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
-
-      <dialog id='my_modal_5' className='modal modal-bottom sm:modal-middle'>
-        <div className='modal-box'>
+      {/* modal-bottom lg:modal-middle */}
+      <dialog id='my_modal_5' className='modal    '>
+        <div className='modal-box w-11/12 max-w-5xl  '>
           <form method='dialog'>
             {/* if there is a button in form, it will close the modal */}
             <button
@@ -761,20 +840,19 @@ const VehicleProfile = () => {
                   ref={form}
                   onSubmit={handleSendEmail}
                   className='flex flex-col gap-4 mx-12'>
-                  <div>
-                    <label className='floating-label'>
-                      <span>Your Email</span>
-                      <input
-                        type='email'
-                        name='user_email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder='mail@site.com'
-                        className='input '
-                        required
-                      />
-                    </label>
-                  </div>
+                  <label className='floating-label'>
+                    <span>Your Email</span>
+                    <input
+                      type='email'
+                      name='user_email'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder='mail@site.com'
+                      className='input  w-full '
+                      required
+                    />
+                  </label>
+
                   <label className='floating-label'>
                     <span>Subject</span>
                     <input
@@ -782,10 +860,35 @@ const VehicleProfile = () => {
                       readOnly
                       name='title'
                       className='input w-full validator '
-                      value={`Vehicle Maintenance Request – Plate No: ${vehicle.plate_number}`}
+                      value={`Vehicle Maintenance Request – ${vehicle.name} (Plate No: ${vehicle.plate_number})`}
                     />
                   </label>
-                  <label className='floating-label'>
+                  {/* Hidden input for EmailJS with raw HTML body */}
+                  <input
+                    type='hidden'
+                    name='message'
+                    value={getEmailHtmlBody(
+                      vehicle,
+                      issueString,
+                      serviceString,
+                      UpdateCurrent
+                    )}
+                  />
+
+                  {/* Show Email Preview */}
+                  <div
+                    className='border  rounded p-2 bg-gray-100 text-xs'
+                    dangerouslySetInnerHTML={{
+                      __html: getEmailHtmlBody(
+                        vehicle,
+                        issueString,
+                        serviceString,
+                        UpdateCurrent
+                      ),
+                    }}
+                  />
+
+                  {/* <label className='floating-label'>
                     <span>Body</span>
                     <textarea
                       type='text'
@@ -806,7 +909,7 @@ const VehicleProfile = () => {
                         UpdateCurrent && "Current : " + UpdateCurrent + " Km."
                       }  Kindly schedule the necessary service.`}
                     />
-                  </label>
+                  </label> */}
                   {success && (
                     <div className='p-2 bg-success text-green-950 text-center font-bold text-xs rounded-lg '>
                       <p>{success}</p>
@@ -820,7 +923,7 @@ const VehicleProfile = () => {
 
                   <input
                     type='submit'
-                    value={"Send Email"}
+                    value='Send Email'
                     className='btn w-full btn-primary'
                   />
                 </form>
