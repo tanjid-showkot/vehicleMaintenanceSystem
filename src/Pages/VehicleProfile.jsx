@@ -27,6 +27,7 @@ import {
 } from "../Api/Api";
 import moment from "moment";
 import { set } from "react-hook-form";
+import DriverCard from "../Component/DriverCard";
 
 // #0069FF
 // #F2F7FE
@@ -361,7 +362,9 @@ const VehicleProfile = () => {
     ">
       <thead>
       <tr>
-      <td colspan="6" style="border: 1px solid #000; padding: 8px;   "> <strong>Kindly arrange to service/repair the subject machine on your KOMATSU / GALADARI support</strong> </td>
+      <td colspan="6" style="border: 1px solid #000; padding: 8px;   "> <strong>Kindly arrange to service/repair the subject machine on your ${
+        vehicle.contract === "media" ? "TAL AL WATHBA" : "Galadari"
+      } support</strong> </td>
       </tr>
         <tr style="background-color: #f2f2f2;">
           <th style="border: 1px solid #000; padding: 8px;">PLATE NO:</th>
@@ -394,7 +397,7 @@ const VehicleProfile = () => {
             issueString ? `<strong>Issues:</strong> ${issueString} ` : ""
           }${
       serviceString
-        ? `<strong>Service required for:</strong> ${serviceString} Km`
+        ? `<strong>Service required for:</strong> ${serviceString} Hours/Km`
         : ""
     }
           </td>
@@ -466,6 +469,31 @@ const VehicleProfile = () => {
           </div>
         </div>
       </div>
+      <div className='flex md:flex-row flex-col bg-base-200 pb-6 items-center justify-center gap-4'>
+        {vehicle && (
+          <DriverCard
+            title='Driver 1'
+            driver={{
+              name: vehicle.driver,
+              photo: vehicle.driver_photo,
+              contact: vehicle.driver_phone,
+              shift: vehicle.driver_shift,
+            }}
+          />
+        )}
+        {vehicle && (
+          <DriverCard
+            title='Driver 2'
+            driver={{
+              name: vehicle.driver1,
+              photo: vehicle.driver1_photo,
+              contact: vehicle.driver1_phone,
+              shift: vehicle.driver1_shift,
+            }}
+          />
+        )}
+      </div>
+
       <div className='flex m-8 justify-between items-center'>
         <div>
           <p className='text-2xl  font-bold'>Vehicle Maintenance :</p>
