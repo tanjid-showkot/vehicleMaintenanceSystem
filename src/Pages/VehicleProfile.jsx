@@ -351,10 +351,6 @@ const VehicleProfile = () => {
     return `
     <p>Dear Sir</p>
     <p style="font-weight:600; font-size:14px; color:#458d "  >Good Day.We would like to inform you that the following vehicle is due for inspection.</p>
-
-  
-  
-   
     <table style="
       border-collapse: collapse;
       width: 100%;
@@ -423,6 +419,14 @@ const VehicleProfile = () => {
         <div className=' hero-content flex-col  lg:flex-row-reverse'>
           <img src={vehicle.photo} className='lg:max-w-sm rounded-lg ' />
           <div>
+            <div className='w-[250px]  border-2 border-red-600 rounded-xl p-2  items-center'>
+              <div className='text-lg opacity-50'>
+                Current: {current} Hours/Km
+              </div>
+              <div className='text-lg font-bold '>
+                Next : {next ? next + " Hours/Km" : "Under Service"}
+              </div>
+            </div>
             <h1 className='text-3xl font-bold'>
               Plate No: {vehicle.plate_number}
             </h1>

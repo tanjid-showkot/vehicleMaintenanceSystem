@@ -179,4 +179,36 @@ export const getMaintenanceHistoryByVehicle = async (id) => {
         throw error;
     }
 };
+export const getVehicleMaintenanceByReceiveDate = async (date) => {
+    try {
+        const response = await fetch(`${url}maintenance-date-range-by-receive-date/?start_date=${date.from}&end_date=${date.to}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+
+            },
+
+        });
+        return handleResponse(response);
+    } catch (error) {
+        console.error("API Error:", error.message);
+        throw error;
+    }
+};
+export const getVehicleMaintenanceByRequestDate = async (date) => {
+    try {
+        const response = await fetch(`${url}maintenance-date-range?start_date=${date.from}&end_date=${date.to}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+
+            },
+
+        });
+        return handleResponse(response);
+    } catch (error) {
+        console.error("API Error:", error.message);
+        throw error;
+    }
+};
 

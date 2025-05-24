@@ -7,6 +7,7 @@ const VehicleContext = createContext();
 export const Context = ({ children }) => {
   const [mediaVehicle, setMediaVehicle] = useState({});
   const [ownVehicle, setOwnVehicle] = useState({});
+  const [classNames, setClassNames] = useState([]);
   const [allVehicles, setAllVehicles] = useState([]);
   useEffect(() => {
     getVehicleList();
@@ -33,10 +34,26 @@ export const Context = ({ children }) => {
               return acc;
             }, {});
           };
+          const extractUniqueClasses = (vehicles) => {
+            const map = new Map();
+
+            vehicles.forEach(({ class_name, class_logo }) => {
+              if (!map.has(class_name)) {
+                map.set(class_name, {
+                  label: class_name,
+                  value: class_name,
+                  logo: class_logo,
+                });
+              }
+            });
+
+            return Array.from(map.values());
+          };
 
           // Store categorized vehicles separately
           setMediaVehicle(categorizeByClass(mediaVehicles));
           setOwnVehicle(categorizeByClass(ownVehicles));
+          setClassNames(extractUniqueClasses(data));
         });
     } catch (error) {
       console.log(error.message);
@@ -56,6 +73,7 @@ export const Context = ({ children }) => {
     getVehicleList,
     updateVehicle,
     allVehicles,
+    classNames,
   };
   return (
     <VehicleContext.Provider value={contextInfo}>
