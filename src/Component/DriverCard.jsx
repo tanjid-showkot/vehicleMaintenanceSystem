@@ -6,22 +6,37 @@ import { GiSteeringWheel } from "react-icons/gi";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import SelectDropdown from "./SelectDropdown";
+import { Controller, useForm } from "react-hook-form";
+import { editVehicleDriversInfo } from "../Api/Api";
 
-const DriverCard = ({ driver, title }) => {
+const DriverCard = ({ driver, title, id, fetchVehicle }) => {
   const { name, contact, shift, photo } = driver;
   const [showModal, setShowModal] = useState(false);
-  const [driver1, setDriver1] = useState({
-    name: null,
-    contact: null,
-    shift: null,
-    photo: null,
-  });
-  const [driver2, setDriver2] = useState({
-    name: null,
-    contact: null,
-    shift: null,
-    photo: null,
-  });
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const { register, control, handleSubmit } = useForm();
+  const handleDriverInfoUpdate = async (data) => {
+    console.log(data);
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      key === "driver_photo" || key === "driver1_photo"
+        ? formData.append(key, value[0])
+        : formData.append(key, value);
+    });
+    try {
+      await editVehicleDriversInfo(id, formData);
+      setSuccess("Driver info updated successfully");
+      await fetchVehicle();
+      setTimeout(() => {
+        setShowModal(false);
+        setSuccess(null);
+      }, 3000);
+    } catch (error) {
+      setError(error.message);
+      console.error(error);
+    }
+  };
+
   return (
     <div className='card card-side bg-base-100 shadow-sm'>
       <figure>
@@ -63,32 +78,75 @@ const DriverCard = ({ driver, title }) => {
             </form>
             <h3 className='font-bold text-lg'>Edit {title} Info</h3>
 
-            <div className='   w-xs'>
+            <form
+              className='w-xs'
+              onSubmit={handleSubmit(handleDriverInfoUpdate)}>
               <fieldset className='fieldset'>
                 <legend className='fieldset-legend'>Full Name:</legend>
-                <input type='text' className='input' placeholder='Type here' />
+                <input
+                  {...register(title === "Driver 1" ? "driver" : "driver1")}
+                  type='text'
+                  className='input'
+                  required
+                  placeholder='Type here'
+                />
               </fieldset>
               <fieldset className='fieldset'>
                 <legend className='fieldset-legend'>Contact No:</legend>
-                <input type='tel' className='input' placeholder='Type here' />
+                <input
+                  {...register(
+                    title === "Driver 1" ? "driver_phone" : "driver1_phone"
+                  )}
+                  type='tel'
+                  required
+                  className='input'
+                  placeholder='Type here'
+                />
               </fieldset>
               <fieldset className='fieldset'>
                 <legend className='fieldset-legend'>Shift</legend>
-                <SelectDropdown
+                {/* <SelectDropdown
                   placeholder={"Select Shift"}
                   classOptions={[
                     { label: "Night", value: "Night", logo: night },
                     { label: "day", value: "day", logo: day },
                   ]}
+                /> */}
+                <Controller
+                  name={title === "Driver 1" ? "driver_shift" : "driver1_shift"}
+                  control={control}
+                  rules={{ required: "Shift is required" }}
+                  render={({ field }) => (
+                    <SelectDropdown
+                      {...field}
+                      placeholder='Select Shift'
+                      classOptions={[
+                        { label: "Night", value: "Night", logo: night },
+                        { label: "Day", value: "Day", logo: day },
+                      ]}
+                      selectOption={field.onChange} // sync with react-hook-form
+                    />
+                  )}
                 />
               </fieldset>
               <fieldset className='fieldset'>
                 <legend className='fieldset-legend'>Photo</legend>
-                <input type='file' className='file-input' />
+                <input
+                  {...register(
+                    title === "Driver 1" ? "driver_photo" : "driver1_photo"
+                  )}
+                  type='file'
+                  className='file-input'
+                  required
+                />
                 <label className='label'>Max size 2MB</label>
               </fieldset>
-              <button className='btn btn-neutral w-full mt-4'>Submit</button>
-            </div>
+              <button type='submit' className='btn btn-neutral w-full mt-4'>
+                Submit
+              </button>
+            </form>
+            {error && <p className='text-red-500 mt-2'>{error}</p>}
+            {success && <p className='text-green-500 mt-2'>{success}</p>}
           </div>
         </dialog>
       )}
@@ -104,6 +162,7 @@ DriverCard.propTypes = {
     photo: PropTypes.string,
   }).isRequired,
   title: PropTypes.string,
+  id: PropTypes.number.isRequired,
 };
 
 export default DriverCard;

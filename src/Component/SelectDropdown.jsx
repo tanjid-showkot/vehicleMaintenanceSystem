@@ -1,12 +1,9 @@
 /** @format */
 
-import { useState } from "react";
 import PropTypes from "prop-types";
 import Select from "react-select";
 
-const SelectDropdown = ({ classOptions, placeholder, selectOption }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
-
+const SelectDropdown = ({ classOptions, placeholder, value, onChange }) => {
   // Map classOptions to react-select format
   const options = classOptions.map((item) => ({
     value: item.value,
@@ -19,14 +16,18 @@ const SelectDropdown = ({ classOptions, placeholder, selectOption }) => {
   }));
 
   const handleChange = (selected) => {
-    if (!selected) {
-      setSelectedOption(null);
-      return;
-    }
-    setSelectedOption(selected);
-    selectOption(selected.value); // Call the parent function with the selected option
-    console.log("Selected:", selected.value); // or selected.label if needed
+    onChange(selected ? selected.value : null);
   };
+  //   const handleChange = (selected) => {
+  //     if (!selected) {
+  //       setSelectedOption(null);
+  //       return;
+  //     }
+  //     setSelectedOption(selected);
+  //     selectOption(selected.value); // Call the parent function with the selected option
+  //     console.log("Selected:", selected.value); // or selected.label if needed
+  //   };
+  const selectedOption = options.find((opt) => opt.value === value) || null;
   return (
     <Select
       options={options}
@@ -74,6 +75,8 @@ SelectDropdown.propTypes = {
     })
   ).isRequired,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default SelectDropdown;

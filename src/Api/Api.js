@@ -118,6 +118,19 @@ export const editVehicle = async (id, data) => {
         throw error;
     }
 };
+export const editVehicleDriversInfo = async (id, data) => {
+
+    try {
+        const response = await fetch(`${url}vehicles/${id}/`, {
+            method: "PATCH",
+            body: data,
+        });
+        return handleResponse(response);
+    } catch (error) {
+        console.error("API Error:", error.message);
+        throw error;
+    }
+};
 
 export const deleteVehicle = async (id) => {
     try {

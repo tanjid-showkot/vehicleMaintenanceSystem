@@ -473,6 +473,8 @@ const VehicleProfile = () => {
         {vehicle && (
           <DriverCard
             title='Driver 1'
+            fetchVehicle={fetchVehicle}
+            id={vehicle.id}
             driver={{
               name: vehicle.driver,
               photo: vehicle.driver_photo,
@@ -484,6 +486,8 @@ const VehicleProfile = () => {
         {vehicle && (
           <DriverCard
             title='Driver 2'
+            fetchVehicle={fetchVehicle}
+            id={vehicle.id}
             driver={{
               name: vehicle.driver1,
               photo: vehicle.driver1_photo,
