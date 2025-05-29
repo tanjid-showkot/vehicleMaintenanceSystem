@@ -139,7 +139,7 @@ const DriverCard = ({ driver, title, id, fetchVehicle }) => {
                   className='file-input'
                   required
                 />
-                <label className='label'>Max size 2MB</label>
+                <label className='label'>Max size 500kb</label>
               </fieldset>
               <button type='submit' className='btn btn-neutral w-full mt-4'>
                 Submit
