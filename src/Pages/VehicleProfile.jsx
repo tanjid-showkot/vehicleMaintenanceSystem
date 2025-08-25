@@ -241,8 +241,8 @@ const VehicleProfile = () => {
       .then((data) => {
         console.log(data);
         emailjs
-          .sendForm("service_bgo9fec", "template_6offxym", form.current, {
-            publicKey: "wkye0fjFnJ-WHjmQs",
+          .sendForm("service_ta974hn", "template_xw3soiw", form.current, {
+            publicKey: "ezjDULD7ekNeowTgc",
           })
           .then(
             () => {

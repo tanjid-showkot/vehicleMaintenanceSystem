@@ -32,10 +32,6 @@ const Summary = () => {
   const [maintenanceHistory, setMaintenanceHistory] = useState([]);
 
   const handleStatementSearch = async () => {
-    category && console.log("Category:", category);
-    site && console.log("Site:", site);
-    contractor && console.log("Contractor:", contractor);
-
     if (selectRequestDate.from && selectRequestDate.to) {
       try {
         await getVehicleMaintenanceByRequestDate(selectRequestDate)
@@ -263,7 +259,7 @@ const Summary = () => {
             </ul>
           </div> */}
         </div>
-        <div className='overflow-x-auto flex justify-center mt-10 mx-10  '>
+        <div className='overflow-x-auto flex justify-center  m-10   '>
           <table>
             <thead>
               <tr className='bg-blue-600 text-white'>
