@@ -1,6 +1,6 @@
 /** @format */
 import React, { useContext, useEffect, useRef, useState } from "react";
-import logo from "/Picture1.png";
+import logo from "/Picture2.png";
 import avatar from "/avatar.png";
 import { NavLink, useNavigate } from "react-router";
 import VehicleContext from "../Context/Context";
@@ -77,7 +77,7 @@ const Navbar = () => {
       <div className='flex-1'>
         <a className='btn btn-ghost text-xl'>
           {" "}
-          <img src={logo} className=' w-36 ' />{" "}
+          <img src={logo} className=' w-56 ' />{" "}
         </a>
       </div>
 
