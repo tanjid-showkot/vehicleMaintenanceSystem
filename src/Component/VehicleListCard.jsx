@@ -1,6 +1,7 @@
 /** @format */
 import { useNavigate } from "react-router";
 import PropTypes from "prop-types";
+import { VehicleImage } from "../utils/LogoImage";
 
 const VehicleListCard = (props) => {
   const navigator = useNavigate();
