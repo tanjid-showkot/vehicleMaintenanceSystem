@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import logo from "/Picture2.png";
 import avatar from "/avatar.png";
+import malak from "/malak.png";
 import { NavLink, useNavigate } from "react-router";
 import VehicleContext from "../Context/Context";
 import SearchVehicleCard from "./SearchVehicleCard";
@@ -54,7 +55,7 @@ const Navbar = () => {
 
     const results = allVehicles
       .filter((vehicle) => vehicle.plate_number.toString().startsWith(term))
-      .slice(0, 5); // Limit to 5 results
+      .slice(0, 5);
 
     setFilteredVehicles(results);
   };
@@ -70,9 +71,9 @@ const Navbar = () => {
   };
 
   const handleSelectVehicle = (vehicle) => {
-    setSearchTerm(""); // Clear search box
-    setFilteredVehicles([]); // Hide dropdown
-    navigate("/vehicleProfile", { state: { id: vehicle.id } }); // Navigate to vehicle profile
+    setSearchTerm("");
+    setFilteredVehicles([]);
+    navigate("/vehicleProfile", { state: { id: vehicle.id } });
   };
 
   return (
@@ -86,7 +87,6 @@ const Navbar = () => {
 
       <div className='navbar-end w-[20%] lg:w-[60%]'>
         <div ref={dropdownRef} className='dropdown dropdown-end'>
-          {/* Trigger: search icon (click to focus input/open dropdown via DaisyUI focus) */}
           <label tabIndex={0} className='btn btn-ghost btn-circle'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -100,11 +100,9 @@ const Navbar = () => {
             </svg>
           </label>
 
-          {/* Dropdown panel */}
           <div
             tabIndex={0}
             className='dropdown-content z-50 mt-2 w-[370px] rounded-2xl border border-base-200 bg-base-100 p-3 shadow-lg'>
-            {/* Input */}
             <label className='input input-bordered flex items-center gap-2'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -128,7 +126,6 @@ const Navbar = () => {
               />
             </label>
 
-            {/* Results */}
             {(filteredVehicles?.length ?? 0) > 0 ? (
               <ul className='mt-2 max-h-80 overflow-auto rounded-box border border-base-200'>
                 {filteredVehicles.map((vehicle) => (
@@ -150,7 +147,6 @@ const Navbar = () => {
               )
             )}
 
-            {/* Helper */}
             <div className='mt-2 text-xs text-base-content/60'>
               Press <span className='kbd kbd-xs'>Enter</span> to search. Clear
               input to allow outside-click close.
@@ -194,8 +190,8 @@ const Navbar = () => {
             <div className='w-10 rounded-full'>
               <img
                 className=''
+                src={malak}
                 alt='Tailwind CSS Navbar component'
-                src={avatar}
               />
             </div>
           </div>
