@@ -7,6 +7,7 @@ import Vehicle from "../Pages/Vehicle";
 import VehicleProfile from "../Pages/VehicleProfile";
 import OwnVehicle from "../Pages/OwnVehicle";
 import Summary from "../Pages/Summary";
+import AddNewVehicle from "../Pages/AddNewVehicle";
 // import Login from "../Pages/Login";
 
 const webRouter = createBrowserRouter([
@@ -25,6 +26,10 @@ const webRouter = createBrowserRouter([
       {
         path: "ownVehicle",
         element: <OwnVehicle></OwnVehicle>,
+      },
+      {
+        path: "newVehicle",
+        element: <AddNewVehicle></AddNewVehicle>,
       },
       {
         path: "summary",

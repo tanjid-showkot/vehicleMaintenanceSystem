@@ -38,6 +38,9 @@ const Navbar = () => {
         <NavLink to='/ownVehicle'>Own Vehicle</NavLink>
       </li>
       <li>
+        <NavLink to='/newVehicle'>Add New Vehicle</NavLink>
+      </li>
+      <li>
         <NavLink to='/summary'>Summary</NavLink>
       </li>
     </React.Fragment>

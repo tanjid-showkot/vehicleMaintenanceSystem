@@ -5,11 +5,11 @@ import dieci from "../assets/logo/dieci.png";
 import fuso from "../assets/logo/fuso.png";
 import isuzu from "../assets/logo/isuzu.png";
 import jcb from "../assets/logo/jcb.png";
-import kobelco from "../assets/logo/kobelco.png";
+import Kobelco from "../assets/logo/Kobelco.png";
 import komatsu from "../assets/logo/komatsu.png";
 import man from "../assets/logo/man.png";
 import mercedes from "../assets/logo/mercedes.png";
-import snorkel from "../assets/logo/snorkel.png";
+import Snorkel from "../assets/logo/Snorkel.png";
 import tadano from "../assets/logo/tadano.png";
 import tata from "../assets/logo/tata.png";
 
@@ -36,39 +36,42 @@ import forklift from "../assets/transport/forklift.png";
 import manLift from "../assets/transport/man-lift.png";
 
 export const LogoImage = [
-  cat,
-  dieci,
-  fuso,
-  isuzu,
-  jcb,
-  kobelco,
-  komatsu,
-  man,
-  mercedes,
-  snorkel,
-  tadano,
-  tata,
+  { text: "cat", src: cat },
+  { text: "dieci", src: dieci },
+  { text: "fuso", src: fuso },
+  { text: "isuzu", src: isuzu },
+  { text: "jcb", src: jcb },
+  { text: "Kobelco", src: Kobelco },
+  { text: "komatsu", src: komatsu },
+  { text: "man", src: man },
+  { text: "mercedes", src: mercedes },
+  { text: "Snorkel", src: Snorkel },
+  { text: "tadano", src: tadano },
+  { text: "tata", src: tata },
+  { text: "trailer", src: trailer },
+  { text: "forklift", src: forklift },
 ];
 
-export const VehicleImage = [
-  passanger,
-  ton3,
-  TRACTOR_HEAD,
-  trailer,
-  tanker,
-  truckwithcrane,
-  excavator,
-  wheelLoader,
-  telehandler,
-  pipelayer,
-  bulldozer,
-  MotorGrader,
-  mobile_crane,
-  backhoe_loader,
-  crawlerCranes,
-  roller,
-  skidLoader,
-  forklift,
-  manLift,
 
-]
+export const VehicleImage = [
+  { text: "passanger", src: passanger },
+  { text: "ton3", src: ton3 },
+  { text: "TRACTOR_HEAD", src: TRACTOR_HEAD },
+  { text: "trailer", src: trailer },
+  { text: "tanker", src: tanker },
+  { text: "truckwithcrane", src: truckwithcrane },
+  { text: "excavator", src: excavator },
+  { text: "wheelLoader", src: wheelLoader },
+  { text: "telehandler", src: telehandler },
+  { text: "pipelayer", src: pipelayer },
+  { text: "bulldozer", src: bulldozer },
+  { text: "MotorGrader", src: MotorGrader },
+  { text: "mobile_crane", src: mobile_crane },
+  { text: "backhoe_loader", src: backhoe_loader },
+  { text: "crawlerCranes", src: crawlerCranes },
+  { text: "roller", src: roller },
+  { text: "skidLoader", src: skidLoader },
+  { text: "forklift", src: forklift },
+  { text: "manLift", src: manLift },
+];
+

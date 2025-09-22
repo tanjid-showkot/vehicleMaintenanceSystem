@@ -27,6 +27,7 @@ import {
 } from "../Api/Api";
 import moment from "moment";
 import DriverCard from "../Component/DriverCard";
+import { VehicleImage } from "../utils/LogoImage";
 
 // #0069FF
 // #F2F7FE
@@ -419,7 +420,17 @@ const VehicleProfile = () => {
       </div>
       <div className='hero bg-base-200 '>
         <div className=' hero-content flex-col  lg:flex-row-reverse'>
-          <img src={vehicle.photo} className='lg:max-w-sm rounded-lg ' />
+          {/* <img src={vehicle.photo} className='lg:max-w-sm rounded-lg ' /> */}
+
+          <img
+            className='lg:max-w-sm rounded-lg '
+            src={
+              VehicleImage.find((image) => image.text === vehicle.photo_text)
+                ?.src
+            }
+            alt={vehicle.photo_text}
+          />
+
           <div>
             <div className='w-[250px]  border-2 border-red-600 rounded-xl p-2  items-center'>
               <div className='text-lg opacity-50'>

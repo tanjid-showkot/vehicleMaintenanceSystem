@@ -1,6 +1,7 @@
 /** @format */
 import { useNavigate } from "react-router";
 import PropTypes from "prop-types";
+import { LogoImage, VehicleImage } from "../utils/LogoImage";
 
 const VehicleListCard = (props) => {
   const navigator = useNavigate();
@@ -15,7 +16,13 @@ const VehicleListCard = (props) => {
       <li className='list-row'>
         <div className='text-4xl font-thin opacity-30 tabular-nums '>{sl}</div>
         <div className='flex items-center bg-gray-200 p-4 rounded-2xl  '>
-          <img className=' size-14 h-fit ' src={vehicle.logo} />
+          <img
+            className='size-14 h-fit'
+            src={
+              LogoImage.find((image) => image.text === vehicle.logo_text)?.src
+            }
+            alt={vehicle.logo_text}
+          />
         </div>
         <div className='list-col-grow'>
           <div className=' font-black'>Plate No: {vehicle.plate_number} </div>
@@ -76,7 +83,7 @@ const VehicleListCard = (props) => {
 export default VehicleListCard;
 VehicleListCard.propTypes = {
   vehicle: PropTypes.shape({
-    logo: PropTypes.string,
+    logo_text: PropTypes.string,
     plate_number: PropTypes.string,
     name: PropTypes.string,
     site: PropTypes.string,

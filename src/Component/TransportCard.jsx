@@ -1,6 +1,7 @@
 /** @format */
 import { useNavigate } from "react-router";
 import PropTypes from "prop-types";
+import { VehicleImage } from "../utils/LogoImage";
 
 const TransportCard = (props) => {
   const { class_name, transport } = props;
@@ -55,7 +56,15 @@ const TransportCard = (props) => {
         </div>
       </div>
       <figure className='w-40'>
-        <img src={transport[0].class_logo} className='p-2 h-fit' alt='' />
+        <img
+          className='p-2 h-fit'
+          src={
+            VehicleImage.find((image) => image.text === transport[0].class_text)
+              ?.src
+          }
+          alt={transport[0].class_text}
+        />
+        {/* <img src={transport[0].class_logo}  alt='' /> */}
       </figure>
     </div>
   );
@@ -68,7 +77,7 @@ TransportCard.propTypes = {
   transport: PropTypes.arrayOf(
     PropTypes.shape({
       site: PropTypes.string,
-      class_logo: PropTypes.string.isRequired,
+      class_text: PropTypes.string,
     })
   ).isRequired,
 };
