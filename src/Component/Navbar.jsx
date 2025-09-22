@@ -85,7 +85,80 @@ const Navbar = () => {
       </div>
 
       <div className='navbar-end w-[20%] lg:w-[60%]'>
-        <div className='relative  ' ref={dropdownRef}>
+        <div ref={dropdownRef} className='dropdown dropdown-end'>
+          {/* Trigger: search icon (click to focus input/open dropdown via DaisyUI focus) */}
+          <label tabIndex={0} className='btn btn-ghost btn-circle'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-7 w-7'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'>
+              <circle cx='11' cy='11' r='7' />
+              <line x1='21' y1='21' x2='16.65' y2='16.65' />
+            </svg>
+          </label>
+
+          {/* Dropdown panel */}
+          <div
+            tabIndex={0}
+            className='dropdown-content z-50 mt-2 w-[370px] rounded-2xl border border-base-200 bg-base-100 p-3 shadow-lg'>
+            {/* Input */}
+            <label className='input input-bordered flex items-center gap-2'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-4 w-4 opacity-70'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'>
+                <circle cx='11' cy='11' r='7' />
+                <line x1='21' y1='21' x2='16.65' y2='16.65' />
+              </svg>
+
+              <input
+                ref={inputRef}
+                type='text'
+                placeholder='Search by Plate Number'
+                value={searchTerm}
+                onFocus={handleInputFocus}
+                onChange={handleSearch}
+                className='grow bg-transparent outline-none'
+              />
+            </label>
+
+            {/* Results */}
+            {(filteredVehicles?.length ?? 0) > 0 ? (
+              <ul className='mt-2 max-h-80 overflow-auto rounded-box border border-base-200'>
+                {filteredVehicles.map((vehicle) => (
+                  <li key={vehicle.id} className='p-1'>
+                    <button
+                      type='button'
+                      className='w-full rounded-lg p-2 text-left hover:bg-base-200'
+                      onClick={() => handleSelectVehicle(vehicle)}>
+                      <SearchVehicleCard vehicle={vehicle} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              searchTerm?.trim() !== "" && (
+                <div className='mt-2 rounded-box border border-base-200 p-3 text-sm text-base-content/70'>
+                  No results found
+                </div>
+              )
+            )}
+
+            {/* Helper */}
+            <div className='mt-2 text-xs text-base-content/60'>
+              Press <span className='kbd kbd-xs'>Enter</span> to search. Clear
+              input to allow outside-click close.
+            </div>
+          </div>
+        </div>
+
+        {/* <div className='relative  ' ref={dropdownRef}>
           <input
             type='text'
             ref={inputRef}
@@ -107,7 +180,8 @@ const Navbar = () => {
               ))}
             </ul>
           )}
-        </div>
+        </div> */}
+
         <ul className='menu menu-horizontal px-1 font-bold lg:flex hidden md:me-30'>
           {menuItems}
         </ul>
