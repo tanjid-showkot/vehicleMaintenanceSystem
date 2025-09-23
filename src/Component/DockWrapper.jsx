@@ -6,7 +6,9 @@ import Dock from "./Dock"; // adjust path if different
 import { VscHome } from "react-icons/vsc";
 import { VscArchive } from "react-icons/vsc";
 import { VscAccount } from "react-icons/vsc";
+import { HiOutlineDocumentReport } from "react-icons/hi";
 import { VscSettingsGear } from "react-icons/vsc";
+import { MdDomain } from "react-icons/md";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router";
 
@@ -16,8 +18,8 @@ export default function DockWrapper() {
   const items = [
     { icon: <VscHome />, label: "Home", onClick: () => navigate("/") },
     {
-      icon: <VscArchive />,
-      label: "Archive",
+      icon: <MdDomain />,
+      label: "Own Vehicle",
       onClick: () => navigate("/ownVehicle"),
     },
     {
@@ -26,8 +28,8 @@ export default function DockWrapper() {
       onClick: () => navigate("/newVehicle"),
     },
     {
-      icon: <VscSettingsGear />,
-      label: "Settings",
+      icon: <HiOutlineDocumentReport />,
+      label: "Report",
       onClick: () => navigate("/summary"),
     },
   ];
