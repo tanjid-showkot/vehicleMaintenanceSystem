@@ -1,11 +1,12 @@
 /** @format */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import logo from "/Picture2.png";
-import avatar from "/avatar.png";
+// import avatar from "/avatar.png";
 import malak from "/malak.png";
 import { NavLink, useNavigate } from "react-router";
 import VehicleContext from "../Context/Context";
 import SearchVehicleCard from "./SearchVehicleCard";
+
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredVehicles, setFilteredVehicles] = useState([]);
@@ -196,11 +197,11 @@ const Navbar = () => {
             </div>
           </div>
 
-          <ul
+          {/* <ul
             tabIndex={0}
             className='menu menu-sm dropdown-content bg-base-100 rounded-box z-[-10]  mt-3 w-52 p-2 shadow'>
             {menuItems}
-          </ul>
+          </ul> */}
         </div>
       </div>
     </div>
